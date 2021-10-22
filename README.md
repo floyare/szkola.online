@@ -1,5 +1,5 @@
 # szkola.online
-Platforma edukacyjna
+Platforma edukacyjna (praca konkursowa)
 
 ## Główny zamysł
 szkola.online miała być w swoim rodzaju platformą edukacyjną, gdzie uczniowie i nauczyciele mogą się między sobą komunikować. Nauczyciele mogą przesyłać uczniom zadania i zadawać sprawdziany. Niestety z powodu braku czasu musiałem "okroić" zawartość projektu.
@@ -11,6 +11,7 @@ Główny mechanizm opiera się na systemie szkoły. Polega on na tym, że tworz�
 
 ## Demo strony
 Aktualną wersję strona można zobaczyć na stronie https://szkolaonline.ct8.pl/ Domyślnie dostępne są 3 konta: dyrektora, nauczyciela i ucznia do przetestowania.
+( przypadkowych użytkowników proszę o nie demolowanie strony :) )
 > Konto dyrektora: E-mail: jankowalski@szkola.online, Hasło: jankowalski
 
 > Konto nauczyciela: E-mail: adamadamowski@szkola.online, Hasło: adam
