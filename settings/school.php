@@ -107,6 +107,7 @@
                     <p class="box_subheader">Dane szkoły:</p>
                     <ul>
                         <li class="info_text">Nazwa szkoły: <span><?php echo get_school($conn, $_SESSION["uuidv4"])["school_name"]; ?></span></li>
+                        <li class="info_text"><label class="switch"><input type="checkbox" class="input_allow" <?php if(get_school($conn, $_SESSION["uuidv4"])["school_chat_student_talk_allow"] == 1){echo "checked";} ?>><span class="slider round"></span></label>Wysyłanie wiadomości przez uczniów na chacie grupowym</li>
                     </ul>
                     <button class="btn btn_small" onclick="show_modal('add_student')">Dodaj uczniów</button>
                     <button class="btn btn_small" onclick="show_modal('add_teacher')">Dodaj nauczycieli</button>
@@ -150,6 +151,23 @@
                         break;
                 }
             }
+
+            $(".input_allow").change(function(){
+                var allow;
+                if($(".input_allow").is(":checked")){
+                    allow = 1;
+                }else{
+                    allow = 0;
+                }
+
+                $.ajax('../api/change_talk_permission.php?allow=' + allow,
+                    {
+                        success: function (data, status, xhr) {
+                            show_info_box("Pomyślnie zmieniono", false);
+                    }
+                });
+            });
+
 
             $("#create_student").click(function(){
                 if($("#STUDENT_NAME").val() == "" || $("#STUDENT_SURNAME").val() == "" ||  $("#STUDENT_DATE").val() == "" ||  $("#STUDENT_CLASS").val() == "" ||  $("#STUDENT_MAIL").val() == "" ||  $("#STUDENT_PWD").val() == ""){
