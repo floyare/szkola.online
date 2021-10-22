@@ -2,7 +2,7 @@
 Platforma edukacyjna (praca konkursowa)
 
 ## Główny zamysł
-szkola.online miała być w swoim rodzaju platformą edukacyjną, gdzie uczniowie i nauczyciele mogą się między sobą komunikować. Nauczyciele mogą przesyłać uczniom zadania i zadawać sprawdziany. Niestety z powodu braku czasu musiałem "okroić" zawartość projektu.
+szkola.online miała być w swoim rodzaju platformą edukacyjną, gdzie uczniowie i nauczyciele mogą się między sobą komunikować. Nauczyciele mogą przesyłać uczniom zadania i zadawać sprawdziany tworzone wcześniej w specjalnym kreatorze. Niestety z powodu braku czasu musiałem "okroić" zawartość projektu.
 
 > Strona jest w bardzo wczesniej wersji i nie miałem czasu sprawdzić wszystkich błędów, więc mogą się przydażyć.
 
