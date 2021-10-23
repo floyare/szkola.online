@@ -27,7 +27,7 @@
     <div class="modal_container" id="add_student">
             <div class="modal">
                 <div class="close"><i class='bx bx-x' ></i></div>
-                <h1 class="modal_title">Dodaj ucznia</h1>
+                <h1 class="modal_title">Uczeń</h1>
                 <div class="input_container">
                     <div class="input_box">
                         <p>Imię</p>
@@ -68,7 +68,7 @@
         <div class="modal_container" id="add_teacher">
             <div class="modal">
                 <div class="close"><i class='bx bx-x' ></i></div>
-                <h1 class="modal_title">Dodaj nauczyciela</h1>
+                <h1 class="modal_title">Nauczyciel</h1>
                 <div class="input_container">
                     <div class="input_box">
                         <p>Imię</p>

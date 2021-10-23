@@ -26,6 +26,7 @@ include_once '../includes/functions.inc.php';
 </head>
     <body class="use_background">
         <?php 
+            unset($_SESSION["TEMP_QUESTIONS"]);
             if(isset($_GET["error"])){
                 if($_GET["error"] == "stmtfail"){
                     echo "<script>show_info_box('Wystąpił nieznany błąd! Spróbuj ponownie później!', true);</script>";
@@ -57,7 +58,7 @@ include_once '../includes/functions.inc.php';
             <div class="modal_container" id="create_exam">
                 <div class="modal">
                     <div class="close"><i class='bx bx-x' ></i></div>
-                    <h1 class="modal_title">Utwórz sprawdzian</h1>
+                    <h1 class="modal_title">Utwórz</h1>
                     <div class="exam_create_container">
                         <div class="input_container">
                             <div class="input_box">
@@ -77,7 +78,7 @@ include_once '../includes/functions.inc.php';
             <div class="modal_container" id="manage_exam">
                 <div class="modal">
                     <div class="close"><i class='bx bx-x' ></i></div>
-                    <h1 class="modal_title">Edytuj sprawdzian</h1>
+                    <h1 class="modal_title">Edytuj</h1>
                     <div class="exam_create_container">
                         <div class="input_container">
                             <div class="input_box">
@@ -245,11 +246,11 @@ include_once '../includes/functions.inc.php';
                                                             $.ajax('../api/update_question_answer.php?question=' + data + "&correct=" + data_new,
                                                             {
                                                                 success: function (data_new2, status, xhr) {
-                                                                    $("#QUESTION_TEXT").val() = "";
-                                                                    $("#QUESTION_ANSWER_1").val() = "";
-                                                                    $("#QUESTION_ANSWER_2").val() = "";
-                                                                    $("#QUESTION_ANSWER_3").val() = "";
-                                                                    $("#QUESTION_ANSWER_4").val() = "";
+                                                                    $("#QUESTION_TEXT").val("");
+                                                                    $("#QUESTION_ANSWER_1").val("");
+                                                                    $("#QUESTION_ANSWER_2").val("");
+                                                                    $("#QUESTION_ANSWER_3").val("");
+                                                                    $("#QUESTION_ANSWER_4").val("");
                                                             }
                                                         });
                                                     }

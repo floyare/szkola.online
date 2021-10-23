@@ -28,6 +28,5 @@
     mysqli_stmt_execute($stmt);
     mysqli_stmt_close($stmt);
 
-    add_question_to_exam($conn, $EXAM_ID);
 
     echo get_answer($conn, $ANSWER_TEXT, $QUESTION_ID)["answer_id"];

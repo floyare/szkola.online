@@ -28,4 +28,6 @@
     mysqli_stmt_execute($stmt);
     mysqli_stmt_close($stmt);
 
+    add_question_to_exam($conn, $EXAM);
+
     echo question_exists($conn, $QUESTION_TEXT, $EXAM)["question_id"];

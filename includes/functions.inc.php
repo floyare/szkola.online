@@ -725,8 +725,10 @@ function loginUser($conn, $mail, $pwd){
         $_SESSION["fullname"] = $exists["user_name"] . " " . $exists["user_surname"];
         if($exists["user_type"] == 1){
             $_SESSION["schoolid"] = get_teacher($conn, $exists["user_uuid"])["school_id"];
-        }else{
+        }elseif($exists["user_type"] == 0){
             $_SESSION["schoolid"] = get_student($conn, $exists["user_uuid"])["school_id"];
+        }elseif($exists["user_type"] == 2){
+            $_SESSION["schoolid"] = get_school($conn, $exists["user_uuid"]);
         }
         $hidden_pwd = "";
         for($x = 0; $x <= strlen($pwd); $x++){
