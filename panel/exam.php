@@ -8,10 +8,6 @@ if(!isset($_GET["exam"])){header("location: index.php"); exit();}
 include_once '../includes/dbh.inc.php';
 include_once '../includes/functions.inc.php';
 
-if(!isset($_SESSION["qid"])){
-    $_SESSION["qid"]  = array();
-}
-
 if(!isset($_SESSION["score"])){
     $_SESSION["score"]  = 0;
 }
@@ -21,8 +17,10 @@ if(user_completed_exam($conn, $_GET["exam"], $_SESSION["uuidv4"])){
     exit();
 }
 
-if(count($_SESSION["qid"]) < 1){
-    array_push($_SESSION["qid"], 1);
+//JEZELI UZYTKOWNIK ODŚWIEŻYL STRONE
+$pageWasRefreshed = isset($_SERVER['HTTP_CACHE_CONTROL']) && $_SERVER['HTTP_CACHE_CONTROL'] === 'max-age=0';
+if($pageWasRefreshed){
+    unset($_SESSION["USED_QUESTIONS"]);
 }
 
 ?>
@@ -45,9 +43,10 @@ if(count($_SESSION["qid"]) < 1){
 </head>
     <body class="use_background">
         <?php 
-            //unset($_SESSION["qid"]);
-            //unset($_SESSION["COMPLETED_QUESTIONS"]);
-            //unset($_SESSION["score"]);
+            //JAK NIE DZIALA TO SPORBUJ TO
+            //unset($_SESSION["score"]); 
+            //unset($_SESSION["USED_QUESTIONS"]);
+            //unset($_SESSION["CURRENT_QUESTION"]);
             if(isset($_GET["error"])){
                 if($_GET["error"] == "stmtfail"){
                     echo "<script>show_info_box('Wystąpił nieznany błąd! Spróbuj ponownie później!', true);</script>";
@@ -55,24 +54,25 @@ if(count($_SESSION["qid"]) < 1){
             }
         ?>
         <div class="question_wrapper">
-            <div class="question_box" id="q1">
+            <div class="question_box">
                 <div class="question_content">
-                <?php
-                    $QUESTION =  get_question($conn, $_GET["exam"], null);
-                    echo '<p class="question_amount">' . count($_SESSION["qid"]) . "/" . get_max_questions($conn, $_GET["exam"]) . '</p>';
-                    echo '<h2 class="question_name"><span class="question_id">' . count($_SESSION["qid"]) . '.</span> ' . $QUESTION["question_text"] .'</h2>';
-                    echo '<ul>';
-                    echo get_answers($conn, $QUESTION["question_id"]);
-                    echo '<button class="btn btn_primary answer_send">Prześlij</button>';
-                    echo "</ul>";
-                
-                ?>
+                    
                 </ul>
                 </div>
             </div>
         </div>
         <script>
-            var question_number = 1;
+            generate_question();
+            function generate_question(){
+                $.ajax('../api/generate_question.php?exam=<?php echo $_GET["exam"] ?>',
+                    {
+                        success: function (data, status, xhr) {
+                            $(".question_content").empty();
+                            $('.question_content').append(data);
+                    }
+                });
+            }
+
             var selected_answer;
             $('body').on('click', '.answer', function(){
                 $(".answer").removeClass("selected");
@@ -81,32 +81,23 @@ if(count($_SESSION["qid"]) < 1){
                 console.log(selected_answer);
             })
 
-            // $.ajax('../api/get_exam.php?e=<?php echo $_GET["exam"] ?>&q=<?php echo get_question($conn, $_GET["exam"], NULL)["question_id"];?>&a=' + null + '&i=' + question_number,
-            //         {
-            //             success: function (data, status, xhr) {
-            //                 if(data == "Przekierowywanie... proszę czekać"){
-            //                     window.location.href=" ../panel/index.php?error=examcompleted";
-            //                 }
-            //                 question_number++;
-            //                 $(".question_content").empty();// success callback function
-            //                 $('.question_content').append(data);
-            //                 //updateScroll();
-            //         }
-            //     });
-
+            //JEŻELI KLIKNIETO "PRZEŚLIJ"
             $('body').on('click', '.answer_send', function(){
-                $.ajax('../api/submit_answer.php?e=<?php echo $_GET["exam"] ?>&q=<?php echo get_question($conn, $_GET["exam"], NULL)["question_id"];?>&a=' + selected_answer + '&i=' + question_number,
-                    {
-                        success: function (data, status, xhr) {
-                            if(data == "Przekierowywanie... proszę czekać"){
-                                window.location.href=" ../panel/index.php?error=examcompleted";
-                            }
-                            question_number++;
-                            $(".question_content").empty();// success callback function
-                            $('.question_content').append(data);
-                            //updateScroll();
-                    }
-                });
+                if(selected_answer != null){
+                    $.ajax('../api/submit_answer.php?e=<?php echo $_GET["exam"] ?>&a=' + selected_answer,
+                        {
+                            success: function (data, status, xhr) {
+                                $(".question_content").empty();
+                                $('.question_content').append(data);
+                                if(data == "Przkierowywanie..."){
+                                    window.location.href = "index.php?error=examcompleted";
+                                }else{
+                                    generate_question();
+                                }
+                                selected_answer = null;
+                        }
+                    });
+                }
             })
 
             var focus;

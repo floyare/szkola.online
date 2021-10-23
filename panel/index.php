@@ -15,6 +15,7 @@
     <script src="https://unpkg.com/boxicons@2.0.9/dist/boxicons.js"></script>
     <script src="https://code.jquery.com/jquery-3.3.1.js"></script>
     <link href="https://unpkg.com/aos@2.3.1/dist/aos.css" rel="stylesheet">
+    <script src="../script.js"></script>
 </head>
     <body class="use_background">
         <?php 
@@ -23,7 +24,7 @@
                     echo "<script>show_info_box('Wystąpił nieznany błąd! Spróbuj ponownie później!', true);</script>";
                 }elseif($_GET["error"] == "examcompleted"){
                     echo "<script>show_info_box('Dziękujemy za rozwiązanie testu!', false);</script>";
-                }elseif($_GET["error"] == "noexamfound"){
+                }elseif($_GET["error"] == "examnotfound"){
                     echo "<script>show_info_box('Nie znaleziono egzaminu!', true);</script>";
                 }elseif($_GET["error"] == "examalreadycompleted"){
                     echo "<script>show_info_box('Egzamin został już zatwierdzony!', true);</script>";
@@ -31,14 +32,33 @@
             }
         ?>
 
-    <div class="modal_container" id="modal_teacher">
-            <div class="modal">
-                <div class="close"><i class='bx bx-x' ></i></div>
-                <h1 class="modal_title">Kontakty</h1>
-                <div class="modal_contacts">
+        <div class="modal_container" id="modal_teacher">
+                <div class="modal">
+                    <div class="close"><i class='bx bx-x' ></i></div>
+                    <h1 class="modal_title">Kontakty</h1>
+                    <div class="modal_contacts">
+                    </div>
                 </div>
-            </div>
-    </div>
+        </div>
+
+        
+        <div class="modal_container" id="new_group">
+                <div class="modal">
+                    <div class="close"><i class='bx bx-x' ></i></div>
+                    <h1 class="modal_title">Nowa grupa</h1>
+                    <div class="new_group_container">
+                        <div class="input_container">
+                            <div class="input_box">
+                                <p>Nazwa grupy</p>
+                                <input type="text" id="GROUP_NAME">
+                            </div>
+                        </div>
+                        <center>
+                            <button class="btn btn_primary create_new_group">Utwórz</button>
+                        </center>
+                    </div>
+                </div>
+        </div>
 
         <?php include_once '../header_side.php';?>
         <div class="panel_background">
@@ -63,6 +83,11 @@
 
                     <div class="panel_board">
                         <p class="panel_header">Grupy:</p>
+                        <?php
+                            if($_SESSION["type"] == 1 || $_SESSION["type"] == 2){
+                                echo '<button class="btn btn_small create_group">Utwórz grupę</button>';
+                            }
+                        ?>
                         <div class="active_groups">
                         </div>
                     </div>
@@ -72,6 +97,24 @@
             </ul>
         </div>
         <script>
+             $('body').on('click', '.create_group', function(){
+                show_modal('new_group');
+             });
+
+             $(".create_new_group").click(function(){
+                if($("#GROUP_NAME").val() != null){
+                    $.ajax('../api/create_group.php?name=' + $("#GROUP_NAME").val(),   
+                        {
+                            success: function (data, status, xhr) {
+                                $("#new_group").css('display', 'none');
+                                show_info_box("Utworzono grupę!", false);
+                        }
+                    });
+                }else{
+                    show_info_box("Uzupełnij wszystkie pola!", true);
+                }
+             });
+
             function get_chats(){
                 $.ajax('../api/get_chats.php',   
                 {
@@ -119,12 +162,15 @@
             $("#t_help").click(function(){
                 show_modal("modal_teacher");
                 get_contacts(0);
+                get_contacts(1);
+                get_contacts(2);
             });
 
             
             $("#s_help").click(function(){
                 show_modal("modal_teacher");
                 get_contacts(1);
+                get_contacts(2);
             });
 
             setInterval(function(){
@@ -132,6 +178,5 @@
                 get_groups();
             }, 1000);
         </script>
-        <script src="../script.js"></script>
     </body>
 </html>

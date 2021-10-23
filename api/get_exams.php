@@ -8,9 +8,12 @@
         header("location: ../login/");
         exit();
     }
+
+
     include_once '../includes/dbh.inc.php';
     include_once '../includes/functions.inc.php';
     $uuid = $_SESSION["uuidv4"];
+    $ACCOUNT_TYPE = $_SESSION["type"];
 
     $sql = "SELECT * FROM exams WHERE exam_group_id = ? ORDER BY exam_id DESC";
     $stmt = mysqli_stmt_init($conn);
@@ -25,21 +28,31 @@
 
 
     if ($result->num_rows > 0) {
+        if($ACCOUNT_TYPE == 1 || $ACCOUNT_TYPE == 2){
+            echo '<button class="btn btn_small create_exam"><i class="bx bxs-plus-circle" ></i> Utwórz nowy sprawdzian!</button>';
+        }
         while($row = $result->fetch_assoc()) {
-            echo '<div class="exam">';
-            echo '<p>' . $row["exam_name"] . '</p>';
-            if(result_exist($conn, $uuid, $row["exam_id"])){
-                echo '<p>Status: <span class="done">Rozwiązany</span></p>';
-                echo '<p>Wynik: ' . result_data($conn, $uuid, $row["exam_id"])["exam_result_score"] . '</p>';
+            if($ACCOUNT_TYPE == 1 || $ACCOUNT_TYPE == 2){
+                echo '<div class="exam">';
+                echo '<p class="exam_name">' . $row["exam_name"] . '</p>';
+                echo '<p><button class="btn btn_small" onclick="show_exam_results(`' . $row["exam_id"] . '`)"><i class="bx bxs-bar-chart-alt-2" ></i> Wyniki</button></p>';
+                echo '<p><button class="btn btn_small" onclick="show_exam_settings(`' . $row["exam_id"] . '`)"><i class="bx bxs-edit-alt"></i> Zarządzaj</button></p>';
+                echo '</div>';
             }else{
-                echo '<p>Status: <span class="available">Dostępny</span></p>';
-                echo '<p><button class="btn btn_small" onclick="window.location.href=`exam.php?exam=' . $row["exam_id"] .'`">Rozwiąż</button></p>';
-            }   
-            echo '</div>';
-
+                echo '<div class="exam">';
+                echo '<p>' . $row["exam_name"] . '</p>';
+                if(result_exist($conn, $uuid, $row["exam_id"])){
+                    echo '<p>Status: <span class="done">Rozwiązany</span></p>';
+                    echo '<p>Wynik: ' . result_data($conn, $uuid, $row["exam_id"])["exam_result_score"] . '</p>';
+                }else{
+                    echo '<p>Status: <span class="available">Dostępny</span></p>';
+                    echo '<p><button class="btn btn_small" onclick="window.location.href=`exam.php?exam=' . $row["exam_id"] .'`">Rozwiąż</button></p>';
+                }   
+                echo '</div>';
+            }
         }
       } else {
-          echo "Brak grup!";
+          echo "Brak sprawdzianów!";
       }
 
     mysqli_stmt_close($stmt);

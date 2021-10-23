@@ -4,57 +4,62 @@
         header("location: ../login/");
         exit();
     }
-    if(!isset($_GET["e"]) && !isset($_GET["q"]) && !isset($_GET["a"]) && !isset($_GET["i"])){
-        header("location: ../panel/");
-        exit();
+
+    if(!isset($_GET["a"])){
+        header("location: ?error=noanswer");
+        exit(); 
     }
 
-    $EXAM_ID = $_GET["e"];
-    $QUESTION_ID = $_GET["q"];
-    $ANSWER_ID = $_GET["a"];
-    $QUESTIONS_AMOUNT = $_GET["i"];
-    if(empty($_SESSION["COMPLETED_QUESTIONS"]) || !isset($_SESSION["COMPLETED_QUESTIONS"])){
-        $_SESSION["COMPLETED_QUESTIONS"] = array();
+    if(!isset($_GET["e"])){
+        header("location: ?error=noexam");
+        exit(); 
     }
-
-    array_push($_SESSION["qid"], $QUESTIONS_AMOUNT);
-    array_push($_SESSION["COMPLETED_QUESTIONS"], $QUESTION_ID);
 
     include_once '../includes/dbh.inc.php';
     include_once '../includes/functions.inc.php';
 
-    //EXAM STATUS:
-    //1-COMPLETED
-    //2-IN PROGRESS
+    $QUESTION_ID = $_SESSION["CURRENT_QUESTION"];
+    $ANSWER_ID = $_GET["a"];
+    $EXAM_ID = $_GET["e"];
 
-    if(count($_SESSION["qid"]) > get_max_questions($conn, $EXAM_ID)){
-        unset($_SESSION["qid"]);
-        unset($_SESSION["COMPLETED_QUESTIONS"]);
-        update_result($conn, $_SESSION["uuidv4"], $EXAM_ID, $_SESSION["score"], 1);
-        unset($_SESSION["score"]);
-        echo "Przekierowywanie... proszę czekać";
+    $sql = "SELECT * FROM exam_answers WHERE answer_question_id = ?";
+
+    $stmt = mysqli_stmt_init($conn);
+    if(!mysqli_stmt_prepare($stmt, $sql)){
+        header("location: ../panel/index.php?error=stmtfail");
         exit();
     }
 
-    $USED_QUESTIONS = array();
-    $QUESTION_CURRENT = get_current_question($conn, $QUESTION_ID);
-    if($QUESTION_CURRENT["question_correct"] == $ANSWER_ID){
-        $_SESSION["score"] = $_SESSION["score"] + 1;
-        echo $QUESTION_CURRENT["question_correct"];
-        update_result($conn, $_SESSION["uuidv4"], $EXAM_ID, $_SESSION["score"], 2);
-    }else{
-        echo $QUESTION_CURRENT["question_correct"];
-        update_result($conn, $_SESSION["uuidv4"], $EXAM_ID, $_SESSION["score"], 2);
+    mysqli_stmt_bind_param($stmt, "i", $QUESTION_ID);
+    mysqli_stmt_execute($stmt);
+    $result = mysqli_stmt_get_result($stmt);
+
+
+    if ($result->num_rows > 0) {
+        $row = $result->fetch_assoc();
+        if(get_question($conn, $QUESTION_ID)["question_correct"] == $ANSWER_ID){
+            //UPDATE SCORE AND STILL WRITING TEST
+            $_SESSION["score"] = $_SESSION["score"] + 1;
+        }
+
+        //IF TEST ENDED.
+        if(count($_SESSION["USED_QUESTIONS"]) >= get_max_questions($conn, $EXAM_ID)){
+            //END TEST
+            update_result($conn, $_SESSION["uuidv4"], $EXAM_ID, $_SESSION["score"], 1);
+            unset($_SESSION["score"]);
+            unset($_SESSION["USED_QUESTIONS"]);
+            unset($_SESSION["CURRENT_QUESTION"]);
+            echo "Przkierowywanie...";
+            exit();
+        }else{
+            update_result($conn, $_SESSION["uuidv4"], $EXAM_ID, $_SESSION["score"], 2);
+            //unset($GLOBALS["EXAM"]);
+        }
+
+        echo count($_SESSION["USED_QUESTIONS"]) . " " . get_max_questions($conn, $EXAM_ID) . "  " . $_SESSION["score"] . " " . $QUESTION_ID;
+
+    } else {
+        echo "Brak ODPOWIEDZI";
     }
 
-    $QUESTION = get_question($conn, $EXAM_ID, $_SESSION["COMPLETED_QUESTIONS"]);
-    
-    echo '<p class="question_amount">' . count($_SESSION["qid"]) . "/" . get_max_questions($conn, $EXAM_ID) . '</p>';
-    echo '<h2 class="question_name"><span class="question_id">' . count($_SESSION["qid"]) . '.</span> ' . $QUESTION["question_text"] .'</h2>';
-    echo '<ul>';
-    echo get_answers($conn, $QUESTION["question_id"]);
-    echo '<button class="btn btn_primary answer_send">Prześlij</button>';
-    echo "</ul>";
-
-
-
+    mysqli_stmt_close($stmt);

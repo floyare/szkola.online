@@ -257,8 +257,70 @@ body{
     line-height: 100%;
 }
 
+.container {
+    display: inline-block;
+    position: relative;
+    padding-left: 35px;
+    margin-bottom: 12px;
+    cursor: pointer;
+    font-size: 22px;
+    -webkit-user-select: none;
+    -moz-user-select: none;
+    -ms-user-select: none;
+    user-select: none;
+}
+
+.container input {
+    opacity: 0;
+    cursor: pointer;
+}
+
+.checkmark {
+    position: absolute;
+    top: 0;
+    left: 0;
+    height: 25px;
+    width: 25px;
+    background-color: #eee;
+    border-radius: 50%;
+}
+
+.container:hover input ~ .checkmark {
+    background-color: #ccc;
+}
+
+.container input:checked ~ .checkmark {
+    background-color: var(--m-clr);
+}
+
+.checkmark:after {
+    content: "";
+    position: absolute;
+    display: none;
+}
+
+.container input:checked ~ .checkmark:after {
+    display: block;
+}
+.container .checkmark:after {
+    top: 9px;
+    left: 9px;
+    width: 8px;
+    height: 8px;
+    border-radius: 50%;
+    background: white;
+}
+
 .hidden-xs-up {
     display: none!important;
+}
+
+.modal_subheader{
+    margin-left: 35px;
+}
+
+.modal .input_container{
+    margin: 10px 20px;
 }
 
 .modal .input_container button{
@@ -275,6 +337,10 @@ body{
     border: 1px solid var(--m-clr);
     padding: 10px 15px;
     width: 200px !important;
+}
+
+.modal .input_container .input_box input[type="radio"]{
+    width: auto !important;
 }
 
 .modal .modal_title:before{
@@ -1171,11 +1237,16 @@ section{
     border-radius: 50px;
     padding: 5px 35px;
     margin: 10px 0px;
+    text-align: right;
+}
+
+.exams_container .exam .exam_name{
+    text-align: left !important;
 }
 
 .exams_container .exam p{
     display: inline-block;
-    margin: 0px 10px;
+    margin: 0px 5px;
     font-size: 0.8rem;
     vertical-align: middle;
 }
@@ -1188,6 +1259,57 @@ section{
 .exams_container .exam p .available{
     color:rgb(107, 218, 112);
     font-weight: 700;
+}
+
+
+.exam_results_container .result{
+    background: rgb(243, 243, 243);
+    padding: 5px 20px;
+    border-radius: 50px;
+    margin: 10px 0px;
+}
+
+.exam_results_container .result p{
+    display: inline-block;
+    vertical-align: middle;
+    margin: 5px 10px;
+}
+
+.exam_results_container .result  p img{
+    border-radius: 50%;
+    width: 35px;
+    height: 35px;
+}
+
+.exam_results_container .result p span{
+    color: var(--m-clr);
+    font-weight: 700;
+}
+
+.students_container{
+    max-height: 600px;
+    overflow-y: scroll;
+}
+
+.students_container .student{
+    background: rgb(241, 241, 241);
+    padding: 10px 20px;
+    border-radius: 50px;
+    text-align: left;
+    margin: 15px 0px;
+}
+
+
+.students_container .student p{
+    display: inline-block;
+    margin-right: 10px;
+    vertical-align: middle;
+}
+
+.students_container .student p img{
+    width: 35px;
+    height: 35px;
+    border-radius: 50px;
 }
 /* END PANEL */
 /* EXAM */

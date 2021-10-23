@@ -63,4 +63,26 @@
         }
       mysqli_stmt_close($stmt);
       break;
+    case 2:
+        $sql = "SELECT * FROM students WHERE school_id = ?";
+        $stmt = mysqli_stmt_init($conn);
+        if(!mysqli_stmt_prepare($stmt, $sql)){
+            header("location: ../panel/index.php?error=stmtfail");
+            exit();
+        }
+      
+        mysqli_stmt_bind_param($stmt, "i", $school);
+        mysqli_stmt_execute($stmt); 
+        $result = mysqli_stmt_get_result($stmt);
+      
+        if ($result->num_rows > 0) {
+            echo "Uczniowie: <br>";
+            while($row = $result->fetch_assoc()) {
+              echo "<div class='contact' onclick='window.location.href=`chat.php?user=" . $row["student_uuid"] ."`'><ul><li id='contact_avatar'><img src='" . get_avatar($conn, $row["student_uuid"]) . "'></li><li id='contact_name'><p>"  . $row["student_name"] . " " . $row["student_surname"] . "</p></li></ul></div>";
+            }
+          } else {
+            echo "Brak dostępnych uczniów :(";
+          }
+        mysqli_stmt_close($stmt);
+        break;
   }

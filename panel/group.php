@@ -35,6 +35,98 @@ include_once '../includes/functions.inc.php';
             }
         ?>
         <?php include_once '../header_side.php';?>
+
+            <div class="modal_container" id="add_students_to_group">
+                <div class="modal">
+                    <div class="close"><i class='bx bx-x' ></i></div>
+                    <h1 class="modal_title">Dodaj uczniów</h1>
+                    <div class="students_container">
+                    </div>
+                </div>
+            </div>
+
+            <div class="modal_container" id="view_exam_results">
+                <div class="modal">
+                    <div class="close"><i class='bx bx-x' ></i></div>
+                    <h1 class="modal_title">Wyniki</h1>
+                    <div class="exam_results_container">
+                    </div>
+                </div>
+            </div>
+
+            <div class="modal_container" id="create_exam">
+                <div class="modal">
+                    <div class="close"><i class='bx bx-x' ></i></div>
+                    <h1 class="modal_title">Utwórz sprawdzian</h1>
+                    <div class="exam_create_container">
+                        <div class="input_container">
+                            <div class="input_box">
+                                <p>Nazwa</p>
+                                <input type="text" id="EXAM_NAME">
+                            </div>
+                            <div class="input_box">
+                                <p>Data rozpoczęcia</p>
+                                <input type="date" id="EXAM_DATE">
+                            </div>
+                            <button class="btn btn_primary create_new_exam">Utwórz</button>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            <div class="modal_container" id="manage_exam">
+                <div class="modal">
+                    <div class="close"><i class='bx bx-x' ></i></div>
+                    <h1 class="modal_title">Edytuj sprawdzian</h1>
+                    <div class="exam_create_container">
+                        <div class="input_container">
+                            <div class="input_box">
+                                <p>Pytanie</p>
+                                <input type="text" id="QUESTION_TEXT">
+                            </div>
+                            <!-- <button class="btn btn_primary save_exam">Zapisz</button> -->
+                        </div>
+
+                        <div class="input_container">
+                            <div class="input_box">
+                                <label class="container">
+                                    <input type="radio" checked="checked" name="radio" id="QUESTION_CORRECT_1">
+                                    <span class="checkmark"></span>
+                                </label>
+                                <input type="text" id="QUESTION_ANSWER_1">
+                            </div>
+
+                            <div class="input_box">
+                                <label class="container">
+                                    <input type="radio" checked="checked" name="radio" id="QUESTION_CORRECT_2">
+                                    <span class="checkmark"></span>
+                                </label>
+                                <input type="text" id="QUESTION_ANSWER_2">
+                            </div>
+
+                            <div class="input_box">
+                                <label class="container">
+                                    <input type="radio" checked="checked" name="radio" id="QUESTION_CORRECT_3">
+                                    <span class="checkmark"></span>
+                                </label>
+                                <input type="text" id="QUESTION_ANSWER_3">
+                            </div>
+
+                            <div class="input_box">
+                                <label class="container">
+                                    <input type="radio" checked="checked" name="radio" id="QUESTION_CORRECT_4">
+                                    <span class="checkmark"></span>
+                                </label>
+                                <input type="text" id="QUESTION_ANSWER_4">
+                            </div>
+                        </div>
+                        <center>
+                            <button class="btn btn_small add_question">Dodaj pytanie</button>
+                        </center>
+                    </div>
+                </div>
+            </div>
+
             <div class="panel_background">
             <button class="btn btn_float" onclick="window.location.href='index.php'"><i class='bx bx-arrow-back' ></i> Wróć</button>
                 <ul>
@@ -43,13 +135,20 @@ include_once '../includes/functions.inc.php';
                             <p class="info_small">Grupa:</p>
                             <p class="info_name"><img src="<?php echo 'https://eu.ui-avatars.com/api/?background=' . rgbcode(get_group($conn, $_GET["group"])["group_name"]) .   '&color=fff&name=' . get_group($conn, $_GET["group"])["group_name"]; ?>"><?php echo get_group($conn, $_GET["group"])["group_name"];  ?></p>
                         </div>
+
+                        <?php
+                            if($_SESSION["type"] == 1 || $_SESSION["type"] == 2){
+                                echo '<div class="chat_info">';
+                                echo '<p class="info_small">Ustawienia:</p>';
+                                echo '<button class="btn btn_small group_add_students">Dodaj uczniów</button>';
+                                echo '</div>';
+                            }
+                        ?>
                         <div class="submit_container">
                             <input type="text" class="message">
                             <button type="submit" class="btn btn_small message_send">Wyślij</button>
                         </div>
                         <div class="messages_container">
-                            <!-- <div class="message"><p>Siema</p><p class="date">10.09.2021 - 12:20</p></div>
-                            <div class="message me"><p>no hej</p><p class="date">10.09.2021 - 12:20</p></div> -->
                         </div>
                     </li>
                     <li>
@@ -91,6 +190,115 @@ include_once '../includes/functions.inc.php';
             function updateScroll(){
                 $(".messages_container").scrollTop($(".messages_container").prop("scrollHeight"));
             }
+            
+            function show_exam_results(exam){
+                $("#view_exam_results").css('display', 'block');
+                $.ajax('../api/get_exam_results.php?exam=' + exam,
+                    {
+                        success: function (data, status, xhr) {
+                            $(".exam_results_container").empty();
+                            $('.exam_results_container').append(data);
+                    }
+                });
+            }
+
+            function show_exam_settings(exam){
+                $("#manage_exam").css('display', 'block');
+                $("#manage_exam").attr("exam_id", exam);
+            }
+
+            $(".create_new_exam").click(function(){
+                if($("#EXAM_NAME").val() != "" && $("#EXAM_DATE").val() != ""){
+                    $.ajax('../api/create_exam.php?name=' + $("#EXAM_NAME").val() + "&activation=" + $("#EXAM_DATE").val() + "&group=<?php echo $_GET["group"]; ?>",
+                        {
+                            success: function (data, status, xhr) {
+                                if(data == "EXISTS"){
+                                    show_info_box("Sprawdzian o takiej nazwie już istnieje!", true);
+                                }else{
+                                    show_info_box("Utworzono nowy sprawdzian!", false);
+                                    $("#create_exam").css('display', 'none');
+                                    show_exam_settings(data); //MUSI RETURNOWAC EXAM_ID;
+                                }
+                        }
+                    });
+                }else{
+                    show_info_box("Uzupełnij wszystkie pola!", true);
+                }
+            });
+
+            var CORRECT_ANSWER;
+            $(".add_question").click(function(){
+                if($("#QUESTION_TEXT").val() != "" && $("#QUESTION_ANSWER_1").val() != "" && $("#QUESTION_ANSWER_2").val() != "" && $("#QUESTION_ANSWER_3").val() != "" && $("#QUESTION_ANSWER_4").val() != ""){
+                    $.ajax('../api/create_question.php?qtext=' + $("#QUESTION_TEXT").val() + "&exam=" + $("#manage_exam").attr("exam_id"),
+                        {
+                            success: function (data, status, xhr) {
+                                show_info_box("Dodano pytanie!", false);
+                                $('*[id*=QUESTION_ANSWER]:visible').each(function(){
+                                    $.ajax('../api/create_answer.php?answer=' + $(this).val() + "&question=" + data + "&exam=" + $("#manage_exam").attr("exam_id"),
+                                        {
+                                            success: function (data2, status, xhr) {
+                                                var answer = $(check_radio()).val();
+                                                var current_answer_id = data; //id answera aktualnego
+                                                $.ajax('../api/get_answer.php?question=' + data + "&text=" + answer,
+                                                    {
+                                                        success: function (data_new, status, xhr) {
+                                                            $.ajax('../api/update_question_answer.php?question=' + data + "&correct=" + data_new,
+                                                            {
+                                                                success: function (data_new2, status, xhr) {
+                                                                    $("#QUESTION_TEXT").val() = "";
+                                                                    $("#QUESTION_ANSWER_1").val() = "";
+                                                                    $("#QUESTION_ANSWER_2").val() = "";
+                                                                    $("#QUESTION_ANSWER_3").val() = "";
+                                                                    $("#QUESTION_ANSWER_4").val() = "";
+                                                            }
+                                                        });
+                                                    }
+                                                });
+                                        }
+                                    });
+                                });
+                        }
+                    });
+                }else{
+                    show_info_box("Uzupełnij wszystkie pola!", true);
+                }
+            });
+
+            function check_radio(){
+                var radio = $('input[name=radio]:checked');
+                var a = radio.attr('id');
+                var b = a.replace("QUESTION_CORRECT_", "");
+                var c = "#QUESTION_ANSWER_" + b;
+                return c;
+            }
+
+            function add_user_to_group(uuid){
+                $.ajax('../api/add_student_to_group.php?uuid=' + uuid + "&group=<?php echo $_GET["group"]; ?>", 
+                    {
+                        success: function (data, status, xhr) {
+                            get_students();
+                    }
+                });
+            }
+
+            $('body').on('click', '.group_add_students', function(){
+                $("#add_students_to_group").css('display', 'block');
+                get_students();
+            });
+
+            function get_students(){
+                $.ajax('../api/get_students.php?group=<?php echo $_GET["group"] ?>', 
+                    {
+                        success: function (data, status, xhr) {
+                            $(".students_container").empty();
+                            $('.students_container').append(data);
+                    }
+                });
+            }
+            
+            $('body').on('click', '.create_exam', function(){
+                $("#create_exam").css('display', 'block');
+            })
 
             $(".messages_container").on('scroll', function(){
                 if($(this).scrollTop() + $(this).innerHeight() >= $(this)[0].scrollHeight) {

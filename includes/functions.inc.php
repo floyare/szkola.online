@@ -213,6 +213,30 @@ function get_student($conn, $uuidf){
     mysqli_stmt_close($stmt);
 }
 
+function get_students($conn, $school){
+    $sql = "SELECT * FROM students WHERE school_id = ?";
+    $stmt = mysqli_stmt_init($conn);
+    if(!mysqli_stmt_prepare($stmt, $sql)){
+        header("location: ../panel/index.php?error=stmtfail");
+        exit();
+    }
+
+    mysqli_stmt_bind_param($stmt, "i", $school);
+    mysqli_stmt_execute($stmt);
+    $result = mysqli_stmt_get_result($stmt);
+
+    if ($result->num_rows > 0) {
+        return $result;
+        while($row = $result->fetch_assoc()){
+            return $row;
+        }
+      } else {
+          echo "Brak uczniów!";
+      }
+
+    mysqli_stmt_close($stmt);
+}
+
 function get_teacher($conn, $uuidf){
     $sql = "SELECT * FROM teachers WHERE teacher_uuid = ?";
     $stmt = mysqli_stmt_init($conn);
@@ -388,21 +412,14 @@ function get_current_question($conn, $id){
     mysqli_stmt_close($stmt);
 }
 
-function get_question($conn, $id, $USED_QUESTIONS){
-    $sql = "SELECT * FROM exam_questions WHERE exam_id = ?";
+function get_question($conn, $id){
+    $sql = "SELECT * FROM exam_questions WHERE question_id = ?";
     $stmt = mysqli_stmt_init($conn);
-
-    if(!empty($USED_QUESTIONS)){
-        foreach($USED_QUESTIONS as $QQ){
-            $sql .= " AND question_id != " . $QQ;
-        }
-    }
 
     if(!mysqli_stmt_prepare($stmt, $sql)){
         header("location: ../panel/index.php?error=stmtfail");
         exit();
     }
-
 
     mysqli_stmt_bind_param($stmt, "i", $id);
     mysqli_stmt_execute($stmt);
@@ -572,7 +589,7 @@ function generate_question($conn, $examid, $excepts){
   
     if ($result->num_rows > 0) {
         while($row = $result->fetch_assoc()) {
-            echo "<li class='answer' id='" . $row["answer_id"] . "'><div class='answer_box'><p>"  . $row["answer_text"] . "</p></div></li>";
+            echo "<li class='answer' id='" . $row["answer_id"] . "'><div class='answer_box'><p>"  . $row["answer_text" ] . "</p></div></li>";
         }
       } else {
        
@@ -595,6 +612,7 @@ function get_groups($conn, $uuidf){
     $result = mysqli_stmt_get_result($stmt);
   
     if ($result->num_rows > 0) {
+        return $result;
         while($row = $result->fetch_assoc()) {
             return $row;
         }
@@ -604,6 +622,88 @@ function get_groups($conn, $uuidf){
 
     mysqli_stmt_close($stmt);
 }
+
+function exam_exists($conn, $name, $uuid){
+    $sql = "SELECT * FROM exams WHERE exam_creator = ? AND exam_name = ?";
+    $stmt = mysqli_stmt_init($conn);
+    if(!mysqli_stmt_prepare($stmt, $sql)){
+        header("location: ../panel/index.php?error=stmtfail");
+        exit();
+    }
+  
+    mysqli_stmt_bind_param($stmt, "ss", $uuid, $name);
+    mysqli_stmt_execute($stmt); 
+    $result = mysqli_stmt_get_result($stmt);
+  
+    if ($result->num_rows > 0) {
+        $row = $result->fetch_assoc();
+        return $row;
+    } else {
+       return false;
+    }
+
+    mysqli_stmt_close($stmt);
+}
+
+function question_exists($conn, $text, $examid){
+    $sql = "SELECT * FROM exam_questions WHERE question_text = ? AND exam_id = ?";
+    $stmt = mysqli_stmt_init($conn);
+    if(!mysqli_stmt_prepare($stmt, $sql)){
+        header("location: ../panel/index.php?error=stmtfail");
+        exit();
+    }
+  
+    mysqli_stmt_bind_param($stmt, "si", $text, $examid);
+    mysqli_stmt_execute($stmt); 
+    $result = mysqli_stmt_get_result($stmt);
+  
+    if ($result->num_rows > 0) {
+        $row = $result->fetch_assoc();
+        return $row;
+    } else {
+       return false;
+    }
+
+    mysqli_stmt_close($stmt);
+}
+
+function get_answer($conn, $text, $questionid){
+    $sql = "SELECT * FROM exam_answers WHERE answer_text = ? AND answer_question_id = ?";
+    $stmt = mysqli_stmt_init($conn);
+    if(!mysqli_stmt_prepare($stmt, $sql)){
+        header("location: ../panel/index.php?error=stmtfail");
+        exit();
+    }
+  
+    mysqli_stmt_bind_param($stmt, "si", $text, $questionid);
+    mysqli_stmt_execute($stmt); 
+    $result = mysqli_stmt_get_result($stmt);
+  
+    if ($result->num_rows > 0) {
+        $row = $result->fetch_assoc();
+        return $row;
+    } else {
+       return false;
+    }
+
+    mysqli_stmt_close($stmt);
+}
+
+function add_question_to_exam($conn, $exam){
+    $sql = "UPDATE exams SET exam_total_questions = exam_total_questions + 1 WHERE exam_id = ?";
+
+    $stmt = mysqli_stmt_init($conn);
+    if(!mysqli_stmt_prepare($stmt, $sql)){
+        header("location: ../register/index.php?error=stmtfail");
+        exit();
+    }
+
+   // $type = 2; //0 = student, 1 = teacher, 2 = headmaster
+    mysqli_stmt_bind_param($stmt, "i", $exam);
+    mysqli_stmt_execute($stmt);
+    mysqli_stmt_close($stmt);
+}
+
 
 function loginUser($conn, $mail, $pwd){
     $exists = emailExists($conn, $mail);
@@ -623,7 +723,11 @@ function loginUser($conn, $mail, $pwd){
         $_SESSION["uuidv4"] = $exists["user_uuid"];
         $_SESSION["mail"] = $exists["user_email"];
         $_SESSION["fullname"] = $exists["user_name"] . " " . $exists["user_surname"];
-        $_SESSION["schoolid"] = get_student($conn, $exists["user_uuid"])["school_id"];
+        if($exists["user_type"] == 1){
+            $_SESSION["schoolid"] = get_teacher($conn, $exists["user_uuid"])["school_id"];
+        }else{
+            $_SESSION["schoolid"] = get_student($conn, $exists["user_uuid"])["school_id"];
+        }
         $hidden_pwd = "";
         for($x = 0; $x <= strlen($pwd); $x++){
             $hidden_pwd = $hidden_pwd . "*";
