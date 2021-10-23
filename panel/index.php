@@ -162,15 +162,12 @@
             $("#t_help").click(function(){
                 show_modal("modal_teacher");
                 get_contacts(0);
-                get_contacts(1);
-                get_contacts(2);
             });
 
             
             $("#s_help").click(function(){
                 show_modal("modal_teacher");
                 get_contacts(1);
-                get_contacts(2);
             });
 
             setInterval(function(){
@@ -178,5 +175,6 @@
                 get_groups();
             }, 1000);
         </script>
+        <script src="../script.js"></script>
     </body>
 </html>
