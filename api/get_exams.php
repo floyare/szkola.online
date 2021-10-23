@@ -27,7 +27,7 @@
     $result = mysqli_stmt_get_result($stmt);
 
     if($ACCOUNT_TYPE == 1 || $ACCOUNT_TYPE == 2){
-        echo '<button class="btn btn_small create_exam"><i class="bx bxs-plus-circle" ></i> Utwórz nowy sprawdzian!</button>';
+        echo '<button class="btn btn_small create_exam"><i class="bx bxs-plus-circle" ></i> Utwórz nowy sprawdzian!</button><br>';
     }
     if ($result->num_rows > 0) {
         while($row = $result->fetch_assoc()) {
