@@ -26,11 +26,10 @@
     mysqli_stmt_execute($stmt);
     $result = mysqli_stmt_get_result($stmt);
 
-
+    if($ACCOUNT_TYPE == 1 || $ACCOUNT_TYPE == 2){
+        echo '<button class="btn btn_small create_exam"><i class="bx bxs-plus-circle" ></i> Utwórz nowy sprawdzian!</button>';
+    }
     if ($result->num_rows > 0) {
-        if($ACCOUNT_TYPE == 1 || $ACCOUNT_TYPE == 2){
-            echo '<button class="btn btn_small create_exam"><i class="bx bxs-plus-circle" ></i> Utwórz nowy sprawdzian!</button>';
-        }
         while($row = $result->fetch_assoc()) {
             if($ACCOUNT_TYPE == 1 || $ACCOUNT_TYPE == 2){
                 echo '<div class="exam">';
