@@ -277,6 +277,7 @@ include_once '../includes/functions.inc.php';
                     {
                         success: function (data, status, xhr) {
                             get_students();
+                            show_info_box("Dodano ucznia!", false);
                     }
                 });
             }
