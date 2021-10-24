@@ -21,31 +21,40 @@ Aktualną wersję portalu można zobaczyć na stronie https://szkolaonline.ct8.p
 ## Obsługa
 Po udanej rejestracji dyrektora należy zalogować się na stronę, która przekieruje nas do panelu. Z poziomu panelu klikamy w ustawienia, a następnie zakładkę **Szkoła**. Jeżeli wcześniej nie dodaliśmy szkoły, teraz będzie to możliwe. Klikamy w napis na środku i wypełniamy puste pola. Po udanym tworzeniu odświeżamy stronę, wchodzimy w zakładkę **Szkoła**. Jak będzie można zauważyc utworzyła się nasza szkoła, którą możemy zarządzać klkając w przycisk **Zarządzaj**. Przycisk przeniesie nas do kolejnej podstrony, w której możemy dodawać uczniów i nauczycieli. Możemy także wyłączyć uprawnienia do pisania w chatach grupowych przez uczniów. Obsługa jest bardzo prosta, klikamy w interesujący nas przycisk np. *Dodaj uczniów* i wypełniamy pola. Po zakończeniu konto ucznia zostało utworzone i teraz można się na nie normalnie zalogować. Przelogujmy się więc na konto nauczyciela, począwszy od kliknięcia przycisku **Wyloguj** na górze strony. Logujemy się na konto nauczyciela i widzimy panel. Klikając **Wybierz ucznia** w panelu wyświetli nam się lista uczniów, z którymi możemy rozpocząć chat. Obsługa chatu jest równie prosta, wystarczy wpisać wiadomość i kliknąć **Wyślij**. Logująć się na konto ucznia możemy zauważyć, że pojawiła się u niego ikonka chatu z nauczycielem, klikając w nią możemy również otworzyć chat ze strony ucznia.
 
+
 ### Tworzenie konta:
 Proces rozpoczynamy poprzez kliknięci przycisku "Zapisz się!" na stronie głównej i kontynuujemy wypełniając puste pola.
+
 ![Rejestracja](http://masne-foty.ct8.pl/fxGzdGtXki6lf.png)
 
 Następnie po udanej rejestracji klikamy w przycisk "Zaloguj" w prawym górnym rogu ekranu i podajemy wcześniej wypełnione przez nas dane.
 
+
 ### Dodanie szkoły
 Aby dodać naszą szkołę wystarczy wejść w zakładkę "Ustawienia" -> "Szkoła" i dodać nową szkołę wypełniajac puste pola. Po utworzeniu należy odświeżyć stronę, żeby zobaczyć naszą szkołę.
 
+
 ### Dodawanie uczniów i nauczycieli
 W ustawieniach, w zakładce "Szkoła" klikamy na zarządzanie naszą szkołą
+
 ![Zarządzanie](http://masne-foty.ct8.pl/gYMjjB2fCXd4A.png)
 
 A następnie klikamy "Dodaj uczniów" lub "Dodaj nauczycieli" w zależności co chcemy zrobić.
 
+
 ### Blokowanie możliwości wysyłania wiadomości w grupach przez uczniów
 Bardzo prosta opcja, która dostępna jest w ustawieniach naszej szkoły.
+
 
 ### Tworzenie grupy
 Aby utworzyć grupę wystarczy udać się do panelu i obok pola z napisem "Grupy" nacisnąć przycisk "Utwórz grupę", podajemy nazwę grupy i zatwierdzamy. Po udanym utworzeniu nasza grupa powinna pojawić się w okienku "Grupy".
 
 ![Tworzenie grupy](http://masne-foty.ct8.pl/kWPjnOM7xoOaS.png)
 
+
 ### Dodawanie uczniów do grupy
 Kiedy wejdziemy na utworzoną przez nas grupę, ukażę się nam przycisk "Dodaj uczniów". Klikamy i wybieramy jakiego ucznia chcemy dodać do grupy.
+
 
 ### Tworzenie sprawdzianów
 Tworzenie sprawdzianów jest równie proste jak poprzednie czynności. Wystarczy po wejściu na daną grupę kliknąć "Utwórz nowy sprawdzian", podać nazwę sprawdzianu i datę jego rozpoczęcia (datę i godzinę od której uczniowie będą mogli rozpocząć rozwiązywanie testu)
