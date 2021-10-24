@@ -364,6 +364,11 @@ body{
     transition: 0.2s;
 }
 
+.btn.disabled{
+    pointer-events: none;
+    filter: grayscale(1);
+}
+
 .btn:hover{
     transform: translateY(-2px);
     transition: 0.2s;
@@ -1258,6 +1263,11 @@ section{
 
 .exams_container .exam p .available{
     color:rgb(107, 218, 112);
+    font-weight: 700;
+}
+
+.exams_container .exam p .notavailable{
+    color:rgb(218, 120, 107);
     font-weight: 700;
 }
 
