@@ -84,9 +84,11 @@ Po udanej rejestracji dyrektora należy zalogować się na stronę, która przek
 ### Rozwiązywanie sprawdzianów
   Aby rozwiązać sprawdzian wystarczy z poziomu członka grupy wejść na konkretną grupę i w polu "Sprawdziany" będzię dostępny dodany przez nas wcześniej sprawdzian.
  Jeżeli data i godzina osiągnie tą określoną przez nas do rozpoczęcia testu będziemy mogli rozwiązać owy test.
+ 
  ![Dostępny test](http://masne-foty.ct8.pl/Gn8BCxGgPm95G.png)
  
   Jeżeli jednak test będzie nadal niedostępny ukażę się to samo tyle, że z napisame, że test jest jeszcze niedostępny.
+  
  ![NieDostępny test](http://masne-foty.ct8.pl/w2ZfA56fGxMPM.png)
  
  Rozwiązywanie testu jest równie proste co jego tworzenie. Po kliknięciu Rozwiąż obok interesującego nas sprawdzianu, strona przekieruje nas na podstronę ze sprawdzianem, który musimy rozwiązać. *Uwaga! Strona wykrywa wyjścia poza obszar testu! Oczywiście nic z tym nie robi z powodu tego, że to wersja próbna Ale nie polecam oszukiwać :)*
