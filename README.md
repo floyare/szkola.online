@@ -13,7 +13,7 @@ Platforma edukacyjna (praca konkursowa)
     - [Tworzenie grupy](https://github.com/floyare/szkola.online#tworzenie-grupy)
     - [Dodawanie uczniów do grupy](https://github.com/floyare/szkola.online#dodawanie-uczniów-do-grupy)
     - [Tworzenie sprawdzianów](https://github.com/floyare/szkola.online#tworzenie-sprawdzianów)
-    - [Rowzwiązaywanie sprawdzianów]
+    - [Rowzwiązaywanie sprawdzianów](https://github.com/floyare/szkola.online/blob/main/README.md#rozwiązywanie-sprawdzianów)
 
 ## Główny zamysł
 szkola.online miała być w swoim rodzaju platformą edukacyjną, gdzie uczniowie i nauczyciele mogą się między sobą komunikować. Nauczyciele mogą przesyłać uczniom zadania i zadawać sprawdziany tworzone wcześniej w specjalnym kreatorze. Niestety z powodu braku czasu musiałem "okroić" zawartość projektu.
