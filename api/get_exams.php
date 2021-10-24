@@ -44,8 +44,13 @@
                     echo '<p>Status: <span class="done">Rozwiązany</span></p>';
                     echo '<p>Wynik: ' . result_data($conn, $uuid, $row["exam_id"])["exam_result_score"] . '</p>';
                 }else{
-                    echo '<p>Status: <span class="available">Dostępny</span></p>';
-                    echo '<p><button class="btn btn_small" onclick="window.location.href=`exam.php?exam=' . $row["exam_id"] .'`">Rozwiąż</button></p>';
+                    if(date_parse(get_exam($conn, $row["exam_id"])["exam_datetime"]) >= date_parse(date('m/d/Y h:i:s', time()))){
+                        echo '<p>Status: <span class="notavailable">Niedostępny</span></p>';
+                        echo '<p><button class="btn btn_small disabled" onclick="window.location.href=`exam.php?exam=' . $row["exam_id"] .'`">Rozwiąż</button></p>';
+                    }else{
+                        echo '<p>Status: <span class="available">Dostępny</span></p>';
+                        echo '<p><button class="btn btn_small" onclick="window.location.href=`exam.php?exam=' . $row["exam_id"] .'`">Rozwiąż</button></p>';
+                    }
                 }   
                 echo '</div>';
             }
