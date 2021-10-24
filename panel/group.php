@@ -67,7 +67,7 @@ include_once '../includes/functions.inc.php';
                             </div>
                             <div class="input_box">
                                 <p>Data rozpoczęcia</p>
-                                <input type="date" id="EXAM_DATE">
+                                <input type="datetime-local" id="EXAM_DATE">
                             </div>
                         </div>
                         <center>

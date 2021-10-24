@@ -8,6 +8,11 @@ if(!isset($_GET["exam"])){header("location: index.php"); exit();}
 include_once '../includes/dbh.inc.php';
 include_once '../includes/functions.inc.php';
 
+if(date_parse(get_exam($conn, $_GET["exam"])["exam_datetime"]) >= date_parse(date('m/d/Y h:i:s', time()))){
+    header("location: ../panel/index.php?error=examnotready");
+    exit();
+}
+
 if(!isset($_SESSION["score"])){
     $_SESSION["score"]  = 0;
 }

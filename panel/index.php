@@ -28,6 +28,8 @@
                     echo "<script>show_info_box('Nie znaleziono egzaminu!', true);</script>";
                 }elseif($_GET["error"] == "examalreadycompleted"){
                     echo "<script>show_info_box('Egzamin został już zatwierdzony!', true);</script>";
+                }elseif($_GET["error"] == "examnotready"){
+                    echo "<script>show_info_box('Egzamin nie został jeszcze aktywowany!', true);</script>";
                 }
             }
         ?>
