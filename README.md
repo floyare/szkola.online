@@ -1,6 +1,20 @@
 # szkola.online
 Platforma edukacyjna (praca konkursowa)
 
+## Spis treści
+  - [Główny zamysł](https://github.com/floyare/szkola.online#główny-zamysł)
+  - [Działanie](https://github.com/floyare/szkola.online#działanie)
+  - [Demo strony](https://github.com/floyare/szkola.online#demo-strony)
+  - [Obsługa](https://github.com/floyare/szkola.online#obsługa)
+    - [Tworzenie konta](https://github.com/floyare/szkola.online#tworzenie-konta)
+    - [Dodanie szkoły](https://github.com/floyare/szkola.online#dodanie-szkoły)
+    - [Dodawanie uczniów i nauczycieli](https://github.com/floyare/szkola.online#dodawanie-uczniów-i-nauczycieli)
+    - [Blokowanie możliwości wysyłania wiadomości w grupach przez uczniów](https://github.com/floyare/szkola.online#blokowanie-możliwości-wysyłania-wiadomości-w-grupach-przez-uczniów)
+    - [Tworzenie grupy](https://github.com/floyare/szkola.online#tworzenie-grupy)
+    - [Dodawanie uczniów do grupy](https://github.com/floyare/szkola.online#dodawanie-uczniów-do-grupy)
+    - [Tworzenie sprawdzianów](https://github.com/floyare/szkola.online#tworzenie-sprawdzianów)
+    - [Rowzwiązaywanie sprawdzianów]
+
 ## Główny zamysł
 szkola.online miała być w swoim rodzaju platformą edukacyjną, gdzie uczniowie i nauczyciele mogą się między sobą komunikować. Nauczyciele mogą przesyłać uczniom zadania i zadawać sprawdziany tworzone wcześniej w specjalnym kreatorze. Niestety z powodu braku czasu musiałem "okroić" zawartość projektu.
 
