@@ -23,46 +23,46 @@ Po udanej rejestracji dyrektora należy zalogować się na stronę, która przek
 
 
 ### Tworzenie konta:
-Proces rozpoczynamy poprzez kliknięci przycisku "Zapisz się!" na stronie głównej i kontynuujemy wypełniając puste pola.
+  Proces rozpoczynamy poprzez kliknięci przycisku "Zapisz się!" na stronie głównej i kontynuujemy wypełniając puste pola.
 
 ![Rejestracja](http://masne-foty.ct8.pl/fxGzdGtXki6lf.png)
 
-Następnie po udanej rejestracji klikamy w przycisk "Zaloguj" w prawym górnym rogu ekranu i podajemy wcześniej wypełnione przez nas dane.
+  Następnie po udanej rejestracji klikamy w przycisk "Zaloguj" w prawym górnym rogu ekranu i podajemy wcześniej wypełnione przez nas dane.
 
 
 ### Dodanie szkoły
-Aby dodać naszą szkołę wystarczy wejść w zakładkę "Ustawienia" -> "Szkoła" i dodać nową szkołę wypełniajac puste pola. Po utworzeniu należy odświeżyć stronę, żeby zobaczyć naszą szkołę.
+  Aby dodać naszą szkołę wystarczy wejść w zakładkę "Ustawienia" -> "Szkoła" i dodać nową szkołę wypełniajac puste pola. Po utworzeniu należy odświeżyć stronę, żeby zobaczyć naszą szkołę.
 
 
 ### Dodawanie uczniów i nauczycieli
-W ustawieniach, w zakładce "Szkoła" klikamy na zarządzanie naszą szkołą
+  W ustawieniach, w zakładce "Szkoła" klikamy na zarządzanie naszą szkołą
 
 ![Zarządzanie](http://masne-foty.ct8.pl/gYMjjB2fCXd4A.png)
 
-A następnie klikamy "Dodaj uczniów" lub "Dodaj nauczycieli" w zależności co chcemy zrobić.
+  A następnie klikamy "Dodaj uczniów" lub "Dodaj nauczycieli" w zależności co chcemy zrobić.
 
 
 ### Blokowanie możliwości wysyłania wiadomości w grupach przez uczniów
-Bardzo prosta opcja, która dostępna jest w ustawieniach naszej szkoły.
+  Bardzo prosta opcja, która dostępna jest w ustawieniach naszej szkoły.
 
 
 ### Tworzenie grupy
-Aby utworzyć grupę wystarczy udać się do panelu i obok pola z napisem "Grupy" nacisnąć przycisk "Utwórz grupę", podajemy nazwę grupy i zatwierdzamy. Po udanym utworzeniu nasza grupa powinna pojawić się w okienku "Grupy".
+  Aby utworzyć grupę wystarczy udać się do panelu i obok pola z napisem "Grupy" nacisnąć przycisk "Utwórz grupę", podajemy nazwę grupy i zatwierdzamy. Po udanym utworzeniu nasza grupa powinna pojawić się w okienku "Grupy".
 
 ![Tworzenie grupy](http://masne-foty.ct8.pl/kWPjnOM7xoOaS.png)
 
 
 ### Dodawanie uczniów do grupy
-Kiedy wejdziemy na utworzoną przez nas grupę, ukażę się nam przycisk "Dodaj uczniów". Klikamy i wybieramy jakiego ucznia chcemy dodać do grupy.
+  Kiedy wejdziemy na utworzoną przez nas grupę, ukażę się nam przycisk "Dodaj uczniów". Klikamy i wybieramy jakiego ucznia chcemy dodać do grupy.
 
 
 ### Tworzenie sprawdzianów
-Tworzenie sprawdzianów jest równie proste jak poprzednie czynności. Wystarczy po wejściu na daną grupę kliknąć "Utwórz nowy sprawdzian", podać nazwę sprawdzianu i datę jego rozpoczęcia (datę i godzinę od której uczniowie będą mogli rozpocząć rozwiązywanie testu)
+  Tworzenie sprawdzianów jest równie proste jak poprzednie czynności. Wystarczy po wejściu na daną grupę kliknąć "Utwórz nowy sprawdzian", podać nazwę sprawdzianu i datę jego rozpoczęcia (datę i godzinę od której uczniowie będą mogli rozpocząć rozwiązywanie testu)
 
 ![Tworzenie sprawdzianu](http://masne-foty.ct8.pl/ZEbjUs7SmnI96.png)
 
-Po udanym utworzeniu ukażę się nam kolejne okienko w które należy wpisac pytanie wraz z odpowiedziami. Pierwsze puste okienko należy do pytania, reszta do odpowiedzi. Zaznaczając odpowiedniy przycisk obok poprawnej odpowiedzi uczyni ją poprawną odpowiedzią na dane pytanie.
+  Po udanym utworzeniu ukażę się nam kolejne okienko w które należy wpisac pytanie wraz z odpowiedziami. Pierwsze puste okienko należy do pytania, reszta do odpowiedzi. Zaznaczając odpowiedniy przycisk obok poprawnej odpowiedzi uczyni ją poprawną odpowiedzią na dane pytanie.
 
 ![Dodawanie pytań](http://masne-foty.ct8.pl/BhlOcF2riHzfe.png)
 
-Po wypełnieniu i zatwierdzeniu pytania okienka się wyzerują i będzie można dodać kolejne pytanie.
+  Po wypełnieniu i zatwierdzeniu pytania okienka się wyzerują i będzie można dodać kolejne pytanie.
