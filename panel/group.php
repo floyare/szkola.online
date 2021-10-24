@@ -69,8 +69,10 @@ include_once '../includes/functions.inc.php';
                                 <p>Data rozpoczęcia</p>
                                 <input type="date" id="EXAM_DATE">
                             </div>
-                            <button class="btn btn_primary create_new_exam">Utwórz</button>
                         </div>
+                        <center>
+                            <button class="btn btn_primary create_new_exam">Utwórz</button>
+                        </center>
                     </div>
                 </div>
             </div>
