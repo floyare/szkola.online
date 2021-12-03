@@ -719,10 +719,16 @@ function loginUser($conn, $mail, $pwd){
         exit();
     }else{
         session_start();
+        $_SESSION["type"] = $exists["user_type"];
         $_SESSION["uid"] = $exists["user_id"];
         $_SESSION["uuidv4"] = $exists["user_uuid"];
         $_SESSION["mail"] = $exists["user_email"];
         $_SESSION["fullname"] = $exists["user_name"] . " " . $exists["user_surname"];
+        $hidden_pwd = "";
+        for($x = 0; $x <= strlen($pwd); $x++){
+            $hidden_pwd = $hidden_pwd . "*";
+        }
+        $_SESSION["pwd"] = $hidden_pwd;
         if($exists["user_type"] == 1){
             $_SESSION["schoolid"] = get_teacher($conn, $exists["user_uuid"])["school_id"];
         }elseif($exists["user_type"] == 0){
@@ -730,12 +736,6 @@ function loginUser($conn, $mail, $pwd){
         }elseif($exists["user_type"] == 2){
             $_SESSION["schoolid"] = get_school($conn, $exists["user_uuid"]);
         }
-        $hidden_pwd = "";
-        for($x = 0; $x <= strlen($pwd); $x++){
-            $hidden_pwd = $hidden_pwd . "*";
-        }
-        $_SESSION["pwd"] = $hidden_pwd;
-        $_SESSION["type"] = $exists["user_type"];
         header("location: ../panel/");
         exit();
     }
