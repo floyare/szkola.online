@@ -1,33 +1,42 @@
-var i = 0;
-function show_info_box(message, iserror){
-    i++;
-    if(iserror){
-        var r = Math.floor(Math.random() * 100);
-        $("body").prepend('<div class="notify_box float error" id="' + r + '"></div>');
-        $("#" + r).append('<p class="notify_content"><i class="bx bxs-error"></i> ' + message + '</p>');
-        $("#" + r).css('top', (parseInt($("#" + r).css('top')) * i ) + 40 + "px");
-        setTimeout(function(){ $("#" + r).addClass("animate")}, 4500);
-        setTimeout(function(){ $("#" + r).remove(); i--;}, 5000);
-    }else{
-        var r = Math.floor(Math.random() * 100);
-        $("body").prepend('<div class="notify_box float success" id="' + r + '"></div>');
-        $("#" + r).append('<p class="notify_content"><i class="bx bxs-check-circle"></i> ' + message + '</p>');
-        $("#" + r).css('top', (parseInt($("#" + r).css('top')) * i ) + 40 + "px");
-        setTimeout(function(){ $("#" + r).addClass("animate")}, 4500);
-        setTimeout(function(){ $("#" + r).remove(); i--;}, 5000);
-    }
+var notificationCount = 0;
+
+function createNotification(message, type) {
+    notificationCount++;
+
+    const $notification = $('<div>').addClass('notify_box float ' + type);
+    const $content = $('<p>').addClass('notify_content').html(message);
+
+    $notification.append($content);
+    $('body').prepend($notification);
+
+    const topPosition = 40 + (notificationCount * 40);
+    $notification.css('top', topPosition + 'px');
+
+    setTimeout(function () {
+        $notification.addClass('animate');
+    }, 4500);
+
+    setTimeout(function () {
+        $notification.remove();
+        notificationCount--;
+    }, 5000);
 }
 
-function show_modal(modal){
-    $("#" + modal).css('display', 'block');
+function show_info_box(message, iserror) {
+    const messageType = iserror ? 'error' : 'success';
+    createNotification(message, messageType);
 }
 
-$(".close").click(function(){
-    $(".modal_container").css('display', 'none');
+function show_modal(modal) {
+    $('#' + modal).css('display', 'block');
+}
+
+$('.modal_container').on('click', '.close', function () {
+    $('.modal_container').css('display', 'none');
 });
 
-$(".nav_toggle").click(function(){
-    $(".items").toggleClass("visible");
+$('.nav_toggle').click(function () {
+    $('.items').toggleClass('visible');
 });
 
 function playSound(url) {
